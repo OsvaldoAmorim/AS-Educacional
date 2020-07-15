@@ -1,0 +1,85 @@
+Sub download_crs_OliveiraTrust()
+    Dim cod_cris As Variant, cod_cras As Variant, completa_endereço As Long, i As Long, nome_cris As Variant, nome_cras As Variant
+    
+    Sheets("Controle").Select
+    
+    cod_cris = Array(11171, 16681)
+    cod_cras = Array(17981)
+    
+    nome_cris = Array("17J0158695", "19F0022619")
+    nome_cras = Array("CRA019995KH")
+    
+    For i = LBound(cod_cris) To UBound(cod_cris)
+       
+        Sheets(nome_cris(i)).Select
+       
+        With ActiveSheet.QueryTables.Add(Connection:= _
+            "URL;http://www.oliveiratrust.com.br/sites/fiduciario/pu_hist.php?ativo=CRI&tit=" & cod_cris(i) _
+            , Destination:=Range("$A$1"))
+            .Name = "pu_hist.php?ativo=CRI&tit=" & cod_cris(i)
+            .FieldNames = True
+            .RowNumbers = False
+            .FillAdjacentFormulas = False
+            .PreserveFormatting = True
+            .RefreshOnFileOpen = False
+            .BackgroundQuery = True
+            .RefreshStyle = xlInsertDeleteCells
+            .SavePassword = False
+            .SaveData = True
+            .AdjustColumnWidth = True
+            .RefreshPeriod = 0
+            .WebSelectionType = xlAllTables
+            .WebFormatting = xlWebFormattingNone
+            .WebPreFormattedTextToColumns = True
+            .WebConsecutiveDelimitersAsOne = True
+            .WebSingleBlockTextImport = False
+            .WebDisableDateRecognition = False
+            .WebDisableRedirections = False
+            .Refresh BackgroundQuery:=False
+        End With
+        
+        Cells.Select
+        Selection.QueryTable.Delete
+        
+    Next i
+        
+     For i = LBound(cod_cras) To UBound(cod_cras)
+       
+        Sheets(nome_cras(i)).Select
+       
+        With ActiveSheet.QueryTables.Add(Connection:= _
+            "URL;http://www.oliveiratrust.com.br/sites/fiduciario/pu_hist.php?ativo=CRA&tit=" & cod_cras(i) _
+            , Destination:=Range("$A$1"))
+            .Name = "pu_hist.php?ativo=CRA&tit=" & cod_cras(i)
+            .FieldNames = True
+            .RowNumbers = False
+            .FillAdjacentFormulas = False
+            .PreserveFormatting = True
+            .RefreshOnFileOpen = False
+            .BackgroundQuery = True
+            .RefreshStyle = xlInsertDeleteCells
+            .SavePassword = False
+            .SaveData = True
+            .AdjustColumnWidth = True
+            .RefreshPeriod = 0
+            .WebSelectionType = xlAllTables
+            .WebFormatting = xlWebFormattingNone
+            .WebPreFormattedTextToColumns = True
+            .WebConsecutiveDelimitersAsOne = True
+            .WebSingleBlockTextImport = False
+            .WebDisableDateRecognition = False
+            .WebDisableRedirections = False
+            .Refresh BackgroundQuery:=False
+        End With
+        Cells.Select
+        Selection.QueryTable.Delete
+        
+    Next i
+           
+        
+        
+        
+        
+ MsgBox ("Dados Atualizados!")
+    
+End Sub
