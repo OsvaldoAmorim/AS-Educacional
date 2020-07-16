@@ -1,0 +1,34 @@
+Sub abrepagina()
+'seleciona o objeto internet explorer
+    Dim objetoIE As InternetExplorer
+'Faz o objeto internet explorer abrir uma nova janela
+    Set objetoIE = New InternetExplorer
+'Torna os procedimentos na web visiveis
+    objetoIE.Visible = False
+'Acessa o site que está entre ""
+    objetoIE.Navigate "https://br.yahoo.com/"
+'Faz um loop para o codigo aguardar o carregamento da pagina
+    While objetoIE.Busy Or objetoIE.ReadyState <> READYSTATE_COMPLETE
+'Faz com que o pc processe outras coisas enquanto a oágina carrega
+        DoEvents
+'Encerra o While
+    Wend
+    
+'Extraindo dados por Class
+    Range("B2").Value = (objetoIE.Document.getElementsByClassName("C(#4d00ae) Fz(14px) Fw(b) Lh(2.1) Td(n) Td(u):f Td(u):h")(5).innerText)
+
+'Extraindo dados por Tags
+    Range("B3").Value = objetoIE.Document.getElementsByTagName("a")(10).innerText
+
+
+
+'Esse método faz com que nosso código fique parado por um tempo. O Time value converte string em tempo, no caso 2 segundos
+    'Application.Wait (Now + TimeValue("00:00:02"))
+    
+'Esse metodo para o codigo nessa linha, util para quando encontrar erros
+    'Stop
+    
+    'MsgBox ("Mensagem apóso time")
+
+'Fecha a janela aberta do internet Explorer
+    objetoIE.Quit
